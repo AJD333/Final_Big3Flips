@@ -41,9 +41,10 @@ class Spider:
                 self.longestFound = len(self.path)
                 print(f"\nIteration: {self.counter}")
                 print(f"Length of path: {len(self.path)-1}")
-                for i in self.path:
-                    print(f"{i.data}, ",end="")
-                print()
+                if self.n<8:
+                    for i in self.path:
+                        print(f"{i.data}, ",end="")
+                    print()
                 with open(f"flipSeq{self.n}.txt","w") as f:
                     for j in range(0,len(self.path)-1):
                         if self.path[j].nFlip == self.path[j+1]:
