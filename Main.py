@@ -1,8 +1,7 @@
 import Spider as S
-import Builder as B
 import sys
 
-n = 7
+n = 6
 
 sys.setrecursionlimit(100000000)
 
