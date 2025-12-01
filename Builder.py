@@ -44,10 +44,6 @@ def nodeInUsed(used,string):
             return True
     return False
 
-def startDFS(web):
-    pointer = web.head
-    depthFirstSearch(pointer,0,[])
-
 def depthFirstSearch(pointer,count,path):
     global TotalPath
     if pointer.visited == True:
@@ -64,23 +60,5 @@ def factorial(n):
         return n
     else:
         return n*factorial(n-1)
-
-def checkDuplicates(path):
-    used = []
-    for i in path:
-        if i.data in used:
-            return False
-        used.append(i.data)
-    return True
-
-def checkAdjacent(path):
-    for i in range(0,len(path)-1):
-        currentNode = path[i]
-        nextNode = path[i+1]
-        if currentNode.nFlip == nextNode or currentNode.n1Flip == nextNode or currentNode.n2Flip == nextNode:
-            continue
-        else:
-            return False
-    return True
 
 
