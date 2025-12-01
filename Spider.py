@@ -40,7 +40,7 @@ class Spider:
             if len(self.path) > self.longestFound:
                 self.longestFound = len(self.path)
                 print(f"\nIteration: {self.counter}")
-                print(f"Length of path: {len(self.path)}")
+                print(f"Length of path: {len(self.path)-1}")
                 for i in self.path:
                     print(f"{i.data}, ",end="")
                 print()
@@ -60,21 +60,7 @@ class Spider:
             if len(self.path) == self.threshold and self.checkWrapAround():
                 self.done = True
                 self.success = True
-                with open(f"flipSeq{self.n}.txt","w") as f:
-                    for j in range(0,len(self.path)-1):
-                        if self.path[j].nFlip == self.path[j+1]:
-                            f.write(f"{self.n} ")
-                        elif self.path[j].n1Flip == self.path[j+1]:
-                            f.write(f"{self.n - 1} ")
-                        elif self.path[j].n2Flip == self.path[j+1]:
-                            f.write(f"{self.n - 2} ")
-                    j = len(self.path)-1
-                    if self.path[j].nFlip == self.path[0]:
-                        f.write(f"{self.n} ")
-                    elif self.path[j].n1Flip == self.path[0]:
-                        f.write(f"{self.n - 1} ")
-                    elif self.path[j].n2Flip == self.path[0]:
-                        f.write(f"{self.n - 2} ")
+                self.outputToFile()
                 return self.path.copy()
 
             self.current.visited = True
@@ -103,21 +89,7 @@ class Spider:
                 if len(self.path) == self.threshold and self.checkWrapAround():
                     self.done = True
                     self.success = True
-                    with open(f"flipSeq{self.n}.txt", "w") as f:
-                        for j in range(0, len(self.path) - 1):
-                            if self.path[j].nFlip == self.path[j + 1]:
-                                f.write(f"{self.n} ")
-                            elif self.path[j].n1Flip == self.path[j + 1]:
-                                f.write(f"{self.n - 1} ")
-                            elif self.path[j].n2Flip == self.path[j + 1]:
-                                f.write(f"{self.n - 2} ")
-                        j = len(self.path)-1
-                        if self.path[j].nFlip == self.path[0]:
-                            f.write(f"{self.n} ")
-                        elif self.path[j].n1Flip == self.path[0]:
-                            f.write(f"{self.n - 1} ")
-                        elif self.path[j].n2Flip == self.path[0]:
-                            f.write(f"{self.n - 2} ")
+                    self.outputToFile()
                     return self.path.copy()
             else:
                 if self.hasValidMoves()==False and len(self.path) > 1:
@@ -158,3 +130,20 @@ class Spider:
             self.lastMove = "n1"
         elif second.n2Flip == self.current:
             self.lastMove = "n2"
+
+    def outputToFile(self):
+        with open(f"flipSeq{self.n}.txt", "w") as f:
+            for j in range(0, len(self.path) - 1):
+                if self.path[j].nFlip == self.path[j + 1]:
+                    f.write(f"{self.n} ")
+                elif self.path[j].n1Flip == self.path[j + 1]:
+                    f.write(f"{self.n - 1} ")
+                elif self.path[j].n2Flip == self.path[j + 1]:
+                    f.write(f"{self.n - 2} ")
+            j = len(self.path) - 1
+            if self.path[j].nFlip == self.path[0]:
+                f.write(f"{self.n} ")
+            elif self.path[j].n1Flip == self.path[0]:
+                f.write(f"{self.n - 1} ")
+            elif self.path[j].n2Flip == self.path[0]:
+                f.write(f"{self.n - 2} ")
